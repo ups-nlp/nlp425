@@ -1,7 +1,3 @@
-/**
-* This class creates an instance of a text analyzer object
-* 
-**/
 package edu.pugetsound.mathcs.nlp.assignments;
 import java.util.Scanner;
 import java.util.List;
@@ -10,9 +6,9 @@ import edu.pugetsound.mathcs.nlp.lang.Utterance;
 import edu.pugetsound.mathcs.nlp.architecture_nlp.features.stanford.StanfordSuite;
 /**
 * IanTextAnalyzer
+* Class that continuously prompts the user to input text and gives an analysis of the conversation so far
 **/
 public class IanTextAnalyzer{
-	/**main method**/
 	public static void main(String[] args){
 		Conversation conversation = new Conversation();
 		StanfordSuite suite = new StanfordSuite();
@@ -26,7 +22,6 @@ public class IanTextAnalyzer{
 			input = sc.nextLine();
 			if(input.equals("quit")){
 				System.out.println("bye!");
-				//System.exit(0);
 				break;
 			} else {
 				Utterance utterance = new Utterance(input);
