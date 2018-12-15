@@ -1,0 +1,14 @@
+Person={me, brother, sister, mom, dad}
+
+type(hasSibling(Person))
+type(parentOf(Person,Person))
+type(spouseOf(Person,Person))
+type(siblingOf(Person,Person))
+
+parentOf(mom,me)
+spouseOf(dad,mom)
+siblingOf(sister,me)
+forall X: (forall Y: (spouseOf(X,Y) => spouseOf(Y,X)))
+forall X: (forall Y: (siblingOf(X,Y) => siblingOf(Y,X)))
+forall X: (exists Y: (siblingOf(X, Y) => hasSibling(X)))
+forall X: (forall Y: (forall Z: ((spouseOf(X,Y) && parentOf(Y,Z)) => parentOf(X,Z))))

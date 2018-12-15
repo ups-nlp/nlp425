@@ -3,8 +3,8 @@ package edu.pugetsound.mathcs.nlp.kb;
 /**
  * This interface represents a predicate in first-order logic. 
 
- * @author alchambers
- * @version 6/2/18
+ * @author alchambers and jjenks
+ * @version 12/3/18
  *
  */
 public interface MyPredicate {
@@ -36,9 +36,12 @@ public interface MyPredicate {
 	 * @param arg Predicate argument
 	 * @param index Position of the argument in the predicate
 	 * @throws IllegalArgumentException if an illegal index is passed in
+	 * 
+	 * @deprecated
 	 */
+	@Deprecated
 	public void addArgument(String arg, int index) throws IllegalArgumentException;
-
+	
 	/**
 	 * Returns the specified argument of the predicate
 	 * 

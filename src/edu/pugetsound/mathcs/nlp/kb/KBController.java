@@ -1,6 +1,6 @@
 package edu.pugetsound.mathcs.nlp.kb;
 
-import edu.pugetsound.mathcs.nlp.kb.basic.BasicKnowledgeBase;
+import edu.pugetsound.mathcs.nlp.kb.tweetykb.TweetyKnowledgeBase;
 
 /**
  * Manages access to all knowledge bases
@@ -34,7 +34,7 @@ public class KBController{
 	public KBController(String dir){
 		this.dir = dir;
 		varCounter = 0;
-		current = new BasicKnowledgeBase();
+		current = new TweetyKnowledgeBase();
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class KBController{
 	 * Creates a constant and adds it to the knowledge base
 	 * 
 	 * @param constant A string containing the name of the constant to be added
-	 * @param sort The type of the constant
+	 * @param sort The sort (type) of the constant. Pass an empty string for default sort
 	 * @return True if the constant is successfully added, false otherwise
 	 */
 	public MyPredicate makeConstant(String constant, String sort) {
@@ -62,22 +62,24 @@ public class KBController{
 
 	/**
 	 * Creates a binary predicate and adds it to the knowledge base
+	 * @param name the name of the binary predicate
+	 * @param sort1 the sort (type) of the first argument. Pass an empty string for default sort
+	 * @param sort2 the sort (type) of the second argument. Pass an empty string for default sort
 	 * @return A binary predicate
 	 */
-	public MyPredicate makeBinaryPredicate(String name, String arg0, String arg1) {
-		MyPredicate predicate = current.makeBinaryPredicate(name);
-		predicate.addArgument(arg0, 0);
-		predicate.addArgument(arg1, 1);
+	public MyPredicate makeBinaryPredicate(String name, String sort1, String sort2) {
+		MyPredicate predicate = current.makeBinaryPredicate(name, sort1, sort2);
 		return predicate;
 	}
 
 	/**
 	 * Creates a unary predicate and adds it to the knowledge base
+	 * @param name the name of the unary predicate
+	 * @param sort the sort (type) of the argument. Pass an empty string for default sort
 	 * @return A unary predicate
 	 */
-	public MyPredicate makeUnaryPredicate(String name, String arg) {
-		MyPredicate predicate= current.makeUnaryPredicate(name);
-		predicate.addArgument(arg, 0);
+	public MyPredicate makeUnaryPredicate(String name, String sort) {
+		MyPredicate predicate = current.makeUnaryPredicate(name, sort);
 		return predicate;
 	}
 
@@ -90,9 +92,7 @@ public class KBController{
 	 * 
 	 */
 	public MyPredicate constantExists(String name) {
-		// It's not clear to me if we simply need to query the signature (thus bypassing the KnowledgeBase
-		// interface) or if we need to integrate this into the KnowledgeBase itself
-		return null;		
+		return current.getConstant(name);
 	}
 	
 	/**
@@ -113,5 +113,34 @@ public class KBController{
 		return current.query(predicate.toString());
 	}
 
+	/**
+	 * Asserts a given formula in the current knowledge base
+	 * @param formula the formula to assert
+	 * 
+	 * @return true if formula was successfully asserted
+	 */
+	public boolean assertFormula(String formula) {
+		return current.assertFormula(formula);
+	}
+	
+	/**
+	 * Loads a knowledge base into the current knowledge base from a file
+	 * @param filename the name of the file to load
+	 * NOTE: the filename is prepended with the path passed to the constructor
+	 * @return true if the knowledge base was successfully loaded
+	 */
+	public boolean loadKnowledgeBase(String filename) {
+		return current.loadKnowledgeBase(this.dir + filename);
+	}
+	
+	/**
+	 * Saves the current knowledge base to a given filename
+	 * @param filename the name of the file to create or overwrite
+	 * NOTE: the filename is prepended with the path passed to the constructor
+	 * @return true if the knowledge base was successfully saved
+	 */
+	public boolean saveKnowledgeBase(String filename) {
+		return current.saveKnowledgeBase(this.dir + filename);
+	}
 
 }

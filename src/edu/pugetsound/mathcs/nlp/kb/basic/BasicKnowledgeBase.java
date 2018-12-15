@@ -18,12 +18,12 @@ public class BasicKnowledgeBase implements KnowledgeBase {
 	}
 
 	@Override
-	public MyPredicate makeBinaryPredicate(String name) {
+	public MyPredicate makeBinaryPredicate(String name, String sort1, String sort2) {
 		return makePredicate(2,name);
 	}
 
 	@Override
-	public MyPredicate makeUnaryPredicate(String name) {
+	public MyPredicate makeUnaryPredicate(String name, String sort) {
 		return makePredicate(1,name);
 	}
 
@@ -32,6 +32,21 @@ public class BasicKnowledgeBase implements KnowledgeBase {
 		pred.setName(name);
 		kb.put(name, pred);
 		return pred;
+	}
+	
+	@Override
+	public MyPredicate getConstant(String name) {
+		return kb.get(name);
+	}
+
+	@Override
+	public MyPredicate getPredicate(String name) {
+		return kb.get(name);
+	}
+	
+	@Override
+	public boolean assertFormula(String formula) {
+		return false;
 	}
 	
 	@Override
@@ -44,4 +59,13 @@ public class BasicKnowledgeBase implements KnowledgeBase {
 		return false;
 	}
 
+	@Override
+	public boolean loadKnowledgeBase(String filepath) {
+		return false;
+	}
+	
+	@Override
+	public boolean saveKnowledgeBase(String filepath) {
+		return false;
+	}
 }

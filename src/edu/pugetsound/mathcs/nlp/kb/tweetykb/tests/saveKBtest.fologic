@@ -1,0 +1,14 @@
+Person={dad, me, sister, mom, brother}
+
+type(siblingOf(Person,Person))
+type(parentOf(Person,Person))
+type(==(_Any,_Any))
+type(/==(_Any,_Any))
+type(spouseOf(Person,Person))
+
+spouseOf(dad,mom)
+parentOf(mom,me)
+siblingOf(sister,me)
+forall X: (forall Y: ((siblingOf(X,Y)=>siblingOf(Y,X))))
+forall X: (forall Y: (forall Z: ((spouseOf(X,Y)&&parentOf(Y,Z)=>parentOf(X,Z)))))
+forall X: (forall Y: ((spouseOf(X,Y)=>spouseOf(Y,X))))
